@@ -115,17 +115,17 @@ restart_klipper()
     fi
 }
 
-uinstall()
+uninstall()
 {
-    if [ -f "${KLIPPER_PATH}/klippy/extras/z_calibration.py" ]; then
-        echo -n "Uninstalling z_calibration... "
-        rm -f "${KLIPPER_PATH}/klippy/extras/z_calibration.py"
-        rm -f "${KLIPPER_PATH}/klippy/extras/z_calibration.pyc"
+    if [ -f "${KLIPPER_PATH}/klippy/extras/probe_homing.py" ]; then
+        echo -n "Uninstalling probe_homing... "
+        rm -f "${KLIPPER_PATH}/klippy/extras/probe_homing.py"
+        rm -f "${KLIPPER_PATH}/klippy/extras/probe_homing.pyc"
         echo "[OK]"
-        echo "You can now remove the \"[update_manager z_calibration]\" section in your moonraker.conf and delete this directory."
-        echo "You also need to remove the \"[z_calibration]\" section in your Klipper configuration..."
+        echo "You can now remove the \"[update_manager probe_homing]\" section in your moonraker.conf and delete this directory."
+        echo "You also need to remove the \"[probe_homing]\" section in your Klipper configuration..."
     else
-        echo -n "${KLIPPER_PATH}/klippy/extras/z_calibration.py not found. Is it installed? "
+        echo -n "${KLIPPER_PATH}/klippy/extras/probe_homing.py not found. Is it installed? "
         echo "[FAILED]"
     fi
 }
@@ -157,11 +157,10 @@ fi
 verify_ready
 check_klipper
 check_requirements
-remove_service
 if [ ! $UNINSTALL ]; then
     link_extension
     add_updater
 else
-    uinstall
+    uninstall
 fi
 restart_klipper
