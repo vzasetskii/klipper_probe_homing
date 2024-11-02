@@ -38,10 +38,10 @@ class ProbeHoming:
         current_z = toolhead.get_position()[2]
         probe_z_offset = probe.get_offsets()[2]
         switch_offset = z_calibration_helper._get_switch_offset(gcmd)
-        new_z = current_z + probe_z_offset
+        new_z = current_z + probe_z_offset - switch_offset
         gcmd.respond_info(
             f"Current Z: {current_z} + probe z_offset: {probe_z_offset}"
-            f" = new Z: {new_z}")
+            f" - switch_offset: {switch_offset} = new Z: {new_z}")
         self.gcode.run_script_from_command(f"SET_KINEMATIC_POSITION Z={new_z}")
 
 
